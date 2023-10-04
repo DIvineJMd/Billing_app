@@ -24,7 +24,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +31,14 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(navController, startDestination = "splash") {
                 composable("splash") { SplashScreen(navController) }
-                composable("login") { LoginPage().content() }
+                composable("login") { LoginPage(navController).content()}
+                composable("userPage") { LoginPage(navController).Log(userType = 'u') }
+                composable("adminPage") { LoginPage(navController).Log(userType = 'a') }
+                                }
             }
         }
     }
-}
+
 
 @Composable
 fun SplashScreen(navController: NavHostController) {
