@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AcUnit
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -126,6 +127,7 @@ class LoginPage(private val navController: NavHostController) {
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var passwordVisible by rememberSaveable { mutableStateOf(false) }
+        var errorMessage by remember { mutableStateOf<String?>(null) }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -152,21 +154,25 @@ class LoginPage(private val navController: NavHostController) {
             Text(text = portalText, fontSize = 25.sp, color = Color.Black)
 
             Spacer(modifier = Modifier.height(16.dp))
-
+            val MAX_USERNAME_LENGTH =10
             OutlinedTextField(
                 value = username,
-                onValueChange = { username = it },
+                onValueChange = {newText->
+                if (newText.length <= MAX_USERNAME_LENGTH) { // MAX_USERNAME_LENGTH is the maximum allowed length
+                username = newText
+                errorMessage=null
+            }else{
+                    errorMessage = "Max characters reached"
+                }
+                                },
                 leadingIcon = { // Use the leadingIcon lambda
                 Icon(
                         imageVector = Icons.Default.AccountCircle,
                         contentDescription = null // Provide a content description if needed
                     )
                 },
-                label = { Text("Username",
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                        )
-                )},
+                label = { Text("Username", style = TextStyle(fontSize = 18.sp)) },
+
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedLabelColor= orange_main,
                     unfocusedLabelColor= Color.Gray,
@@ -174,7 +180,14 @@ class LoginPage(private val navController: NavHostController) {
                     unfocusedBorderColor = Color.Gray,
                     ),
 
+            )
+            // Display the error message
+            errorMessage?.let { message ->
+                Text(
+                    text = message,
+                    style = TextStyle(fontSize = 13.sp, color = Color.Red, fontStyle = FontStyle.Italic)
                 )
+            }
             Spacer(modifier = Modifier.height(20.dp))
 
             OutlinedTextField(
@@ -184,14 +197,15 @@ class LoginPage(private val navController: NavHostController) {
                 leadingIcon = { // Use the leadingIcon lambda
 
                     Icon(
-                        imageVector = Icons.Default.Check
+                        imageVector = Icons.Default.AcUnit
                         ,
                         contentDescription = null // Provide a content description if needed
                     )
                 },
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                trailingIcon={val image = if (passwordVisible)
+
+                        trailingIcon={val image = if (passwordVisible)
                     Icons.Filled.Visibility
                 else Icons.Filled.VisibilityOff
 

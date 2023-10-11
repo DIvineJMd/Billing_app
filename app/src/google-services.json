@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "17243164057",
+    "firebase_url": "https://sadhguru-ac43b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sadhguru-ac43b",
+    "storage_bucket": "sadhguru-ac43b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17243164057:android:78fddfebdc07e6881ad708",
+        "android_client_info": {
+          "package_name": "Satguru_Telecom.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIVPOs5pIqDj6-H7nWEr5I4trrFlNtP04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
