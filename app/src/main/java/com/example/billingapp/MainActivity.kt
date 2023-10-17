@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         FirebaseApp.initializeApp(this)
         setContent {
+
             val navController = rememberNavController()
             NavHost(navController, startDestination = "splash") {
                 composable("splash") { SplashScreen(navController) }
