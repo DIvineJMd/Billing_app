@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.icons.Icons
@@ -49,7 +48,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -91,7 +89,7 @@ class Home {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(shape= RoundedCornerShape(30.dp))
+                        .clip(shape= RoundedCornerShape(10.dp))
                         .shadow(1000.dp, shape = RectangleShape)
                         .requiredHeight(height = 80.dp)
                         .statusBarsPadding()
@@ -140,6 +138,7 @@ class Home {
                         .align(alignment = Alignment.TopEnd)
                         .offset(x = (-16).dp, y = 26.dp)
                         .requiredSize(size = 25.dp)
+                        .clickable { /* notification */ }
                 )
                 Text(
                     textAlign = TextAlign.Center,
@@ -170,23 +169,23 @@ class Home {
                         .wrapContentHeight(align = Alignment.CenterVertically))
                 Box(
                     modifier = Modifier
-                        .align(alignment = Alignment.TopCenter)
+                        .align(alignment = Alignment.Center)
                         .offset(
                             x = 0.dp,
-                            y = 126.dp
+                            y = -60.dp
                         )
                         .requiredWidth(width = 365.dp)
-                        .requiredHeight(height = 199.dp)
+                        .requiredHeight(height = 400.dp)
                 ) {
                     Box(
                         modifier = Modifier
-                            .align(alignment = Alignment.TopStart)
+                            .align(alignment = Alignment.TopCenter)
                             .offset(
                                 x = 0.dp,
-                                y = 29.dp
+                                y = 5.dp
                             )
                             .fillMaxWidth()
-                            .requiredHeight(height = 170.dp)
+                            .requiredHeight(height = 400.dp)
                             .clip(shape = RoundedCornerShape(10.dp))
                             .background(color = Color(0xfffff0dd)))
                     Box(
@@ -259,7 +258,7 @@ class Home {
                             )
                             .clickable { /* Handle */ })
                         Text(
-                            text = "Loans",
+                            text = "Reports",
                             color = Color(0xffa3695c),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
@@ -268,7 +267,7 @@ class Home {
                             modifier = Modifier
                                 .align(alignment = Alignment.TopStart)
                                 .offset(
-                                    x = 33.dp,
+                                    x = 30.dp,
                                     y = 101.dp
                                 )
                                 .wrapContentHeight(align = Alignment.CenterVertically))
@@ -329,64 +328,110 @@ class Home {
                                 )
                                 .requiredSize(size = 51.dp))
                     }
-                    Text(
-                        text = "Quick Buttons",
-                        color = Color(0xff2e2e2e),
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(
-                            fontSize = 16.sp),
-                        modifier = Modifier
-                            .align(alignment = Alignment.TopStart)
-                            .offset(
-                                x = 9.dp,
-                                y = 0.dp
-                            )
-                            .wrapContentHeight(align = Alignment.CenterVertically))
-                }
-                Box(
-                    modifier = Modifier
-                        .align(alignment = Alignment.TopCenter)
-                        .offset(
-                            x = 0.dp,
-                            y = 354.dp
-                        )
-                        .requiredWidth(width = 365.dp)
-                        .requiredHeight(height = 199.dp)
-                ) {
+
                     Box(
                         modifier = Modifier
                             .align(alignment = Alignment.TopStart)
                             .offset(
-                                x = 0.dp,
-                                y = 29.dp
+                                x = 9.dp,
+                                y = 215.dp
                             )
-                            .requiredWidth(width = 365.dp)
-                            .requiredHeight(height = 170.dp)
-                            .clip(shape = RoundedCornerShape(10.dp))
-                            .background(color = Color(0xfffff0dd)))
-                    Text(
-                        text = "Quick Report",
-                        color = Color(0xff2e2e2e),
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(
-                            fontSize = 16.sp),
+                            .requiredWidth(width = 100.dp)
+                            .requiredHeight(height = 130.dp)
+                    )
+                    {
+                        Box(
+                            modifier = Modifier
+                                .requiredWidth(width = 100.dp)
+                                .requiredHeight(height = 130.dp)
+                                .clip(shape = RoundedCornerShape(10.dp))
+                                .background(color = Color.White)
+                                .border(
+                                    border = BorderStroke(1.dp, Color(0xffa5a5a5)),
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+                                .clickable { /* Handle */ }
+                        )
+                        Text(
+                            text = "Loan",
+                            color = Color(0xffa3695c),
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 12.sp),
+                            fontFamily = FontFamily(Font(R.font.itim)),
+                            modifier = Modifier
+                                .align(alignment = Alignment.BottomCenter)
+                                .offset(y=-15.dp)
+                                .wrapContentHeight(align = Alignment.CenterVertically))
+                        Image(
+                            painter = painterResource(id = R.drawable.management1),
+                            contentDescription = "management 1",
+                            modifier = Modifier
+                                .align(alignment = Alignment.TopStart)
+                                .offset(
+                                    x = 25.dp,
+                                    y = 36.dp
+                                )
+                                .requiredSize(size = 51.dp))
+                    }
+                    Box(
                         modifier = Modifier
                             .align(alignment = Alignment.TopStart)
                             .offset(
-                                x = 14.dp,
-                                y = 0.dp
+                                x = 135.dp,
+                                y = 215.dp
                             )
-                            .wrapContentHeight(align = Alignment.CenterVertically))
+                            .requiredWidth(width = 100.dp)
+                            .requiredHeight(height = 130.dp)
+                    )
+                    {
+                        Box(
+                            modifier = Modifier
+                                .requiredWidth(width = 100.dp)
+                                .requiredHeight(height = 130.dp)
+                                .clip(shape = RoundedCornerShape(10.dp))
+                                .background(color = Color.White)
+                                .border(
+                                    border = BorderStroke(1.dp, Color(0xffa5a5a5)),
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+                                .clickable { /* Handle */ }
+                        )
+                        Text(
+                            text = "Credits",
+                            color = Color(0xffa3695c),
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 12.sp),
+                            fontFamily = FontFamily(Font(R.font.itim)),
+                            modifier = Modifier
+                                .align(alignment = Alignment.BottomCenter)
+                                .offset(y=-15.dp)
+                                .wrapContentHeight(align = Alignment.CenterVertically))
+                        Image(
+                            painter = painterResource(id = R.drawable.management1),
+                            contentDescription = "management 1",
+                            modifier = Modifier
+                                .align(alignment = Alignment.TopStart)
+                                .offset(
+                                    x = 25.dp,
+                                    y = 36.dp
+                                )
+                                .requiredSize(size = 51.dp))
+                    }
                     Box(
                         modifier = Modifier
                             .align(alignment = Alignment.TopStart)
                             .offset(
                                 x = 255.dp,
-                                y = 51.dp
+                                y = 215.dp
                             )
                             .requiredWidth(width = 100.dp)
                             .requiredHeight(height = 130.dp)
-                    ) {
+                    )
+                    {
                         Box(
                             modifier = Modifier
                                 .requiredWidth(width = 100.dp)
@@ -397,227 +442,33 @@ class Home {
                                     border = BorderStroke(1.dp, Color(0xffa5a5a5)),
                                     shape = RoundedCornerShape(10.dp)
                                 )
-
+                                .clickable { /* Handle */ }
                         )
                         Text(
-                            text = "1",
-                            color = Color(0xff3f3f3f),
-                            textAlign = TextAlign.Center,
-                            style = TextStyle(
-                                fontSize = 14.sp),
-                            modifier = Modifier
-                                .align(alignment = Alignment.TopStart)
-                                .offset(
-                                    x = 46.dp,
-                                    y = 89.dp
-                                )
-                                .wrapContentHeight(align = Alignment.CenterVertically))
-                        Text(
-                            text = "Active Staff",
+                            text = "Sell Product",
                             color = Color(0xffa3695c),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 12.sp),
+                            fontFamily = FontFamily(Font(R.font.itim)),
                             modifier = Modifier
-                                .align(alignment = Alignment.TopStart)
-                                .offset(
-                                    x = 18.dp,
-                                    y = 60.dp
-                                )
+                                .align(alignment = Alignment.BottomCenter)
+                                .offset(y=-15.dp)
                                 .wrapContentHeight(align = Alignment.CenterVertically))
-                        Box(
-                            modifier = Modifier
-                                .align(alignment = Alignment.TopStart)
-                                .offset(
-                                    x = 35.dp,
-                                    y = 16.dp
-                                )
-                                .requiredSize(size = 30.dp)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .requiredSize(size = 40.dp)
-                                    .clip(shape = CircleShape)
-                                    .background(color = Color(0xffff8c00)))
-                            Image(
-                                painter = painterResource(id = R.drawable.frame),
-                                contentDescription = "Frame",
-                                modifier = Modifier
-                                    .fillMaxSize()
-
-                            )
-                        }
-                    }
-                    Box(
-                        modifier = Modifier
-                            .align(alignment = Alignment.TopStart)
-                            .offset(
-                                x = 9.dp,
-                                y = 51.dp
-                            )
-                            .requiredWidth(width = 100.dp)
-                            .requiredHeight(height = 130.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .requiredWidth(width = 100.dp)
-                                .requiredHeight(height = 130.dp)
-                                .clip(shape = RoundedCornerShape(10.dp))
-                                .background(color = Color.White)
-                                .border(
-                                    border = BorderStroke(1.dp, Color(0xffa5a5a5)),
-                                    shape = RoundedCornerShape(10.dp)
-                                ))
-                        Text(
-                            text = "Bills Made",
-                            color = Color(0xffa3695c),
-                            textAlign = TextAlign.Center,
-                            style = TextStyle(
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 12.sp),
-                            modifier = Modifier
-                                .align(alignment = Alignment.TopStart)
-                                .offset(
-                                    x = 20.dp,
-                                    y = 60.dp
-                                )
-                                .wrapContentHeight(align = Alignment.CenterVertically))
-                        Text(
-                            text = "254",
-                            color = Color(0xff3f3f3f),
-                            textAlign = TextAlign.Center,
-                            style = TextStyle(
-                                fontSize = 14.sp),
-                            modifier = Modifier
-                                .align(alignment = Alignment.TopStart)
-                                .offset(
-                                    x = 38.dp,
-                                    y = 89.dp
-                                )
-                                .wrapContentHeight(align = Alignment.CenterVertically))
-                        Box(
-                            modifier = Modifier
-                                .align(alignment = Alignment.TopStart)
-                                .offset(
-                                    x = 28.dp,
-                                    y = 10.dp
-                                )
-                                .requiredSize(size = 40.dp)
-                                .clip(shape = CircleShape)
-                                .background(color = Color(0xffff8c00)))
                         Image(
-                            painter = painterResource(id = R.drawable.bill1),
-                            contentDescription = "bill_made",
-                            modifier = Modifier
-                                .align(alignment = Alignment.Center)
-                                .offset(
-                                    x = (0.0).dp,
-                                    y = (-35.81480407714844).dp
-                                )
-                                .requiredWidth(width = 25.dp)
-                                .requiredHeight(height = 30.dp))
-                    }
-                    Box(
-                        modifier = Modifier
-                            .align(alignment = Alignment.TopStart)
-                            .offset(
-                                x = 132.dp,
-                                y = 51.dp
-                            )
-                            .requiredWidth(width = 100.dp)
-                            .requiredHeight(height = 130.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .requiredWidth(width = 100.dp)
-                                .requiredHeight(height = 130.dp)
-                                .clip(shape = RoundedCornerShape(10.dp))
-                                .background(color = Color.White)
-                                .border(
-                                    border = BorderStroke(1.dp, Color(0xffa5a5a5)),
-                                    shape = RoundedCornerShape(10.dp)
-                                )
-
-                        )
-                        Text(
-                            text = "5640",
-                            color = Color(0xff3f3f3f),
-                            textAlign = TextAlign.Center,
-                            style = TextStyle(
-                                fontSize = 14.sp),
+                            painter = painterResource(id = R.drawable.management1),
+                            contentDescription = "management 1",
                             modifier = Modifier
                                 .align(alignment = Alignment.TopStart)
                                 .offset(
-                                    x = 33.dp,
-                                    y = 89.dp
+                                    x = 25.dp,
+                                    y = 36.dp
                                 )
-                                .wrapContentHeight(align = Alignment.CenterVertically))
-                        Text(
-                            text = "Sales",
-                            color = Color(0xffa3695c),
-                            textAlign = TextAlign.Center,
-                            style = TextStyle(
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 12.sp),
-                            modifier = Modifier
-                                .align(alignment = Alignment.TopStart)
-                                .offset(
-                                    x = 35.dp,
-                                    y = 60.dp
-                                )
-                                .wrapContentHeight(align = Alignment.CenterVertically))
-                        Box(
-                            modifier = Modifier
-                                .align(alignment = Alignment.TopStart)
-                                .offset(
-                                    x = 35.dp,
-                                    y = 16.dp
-                                )
-                                .requiredSize(size = 30.dp)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .requiredSize(size = 40.dp)
-                                    .clip(shape = CircleShape)
-                                    .background(color = Color(0xffff8c00)))
-                            Image(
-                                painter = painterResource(id = R.drawable.rupee),//sales
-                                contentDescription = "Frame",
-                                colorFilter = ColorFilter.tint(Color(0xff4d4d4d)),
-                                modifier = Modifier
-                                    .align(alignment = Alignment.TopStart)
-                                    .offset(
-                                        x = 4.dp,
-                                        y = 4.dp
-                                    )
-                                    .requiredSize(size = 24.dp))
-                        }
-                    }
-
-                    Box(
-                        modifier = Modifier
-                            .align(alignment = Alignment.TopStart)
-                            .offset(
-                                x = 269.dp,
-                                y = 0.dp
-                            )
-                            .requiredWidth(width = 86.dp)
-                            .requiredHeight(height = 24.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .requiredWidth(width = 86.dp)
-                                .requiredHeight(height = 24.dp)
-                                .clip(shape = RoundedCornerShape(topStart = 2.dp, topEnd = 2.dp))
-                                .background(color = Color(0xfffff0dd)))
-                      //yaha
-                        Text(modifier = Modifier
-                            .padding(3.dp)
-                            .offset(x = 6.dp, y = 0.dp), text = "Today")
-                        dropdown()
+                                .requiredSize(size = 51.dp))
                     }
                 }
+
                 Box(
                     modifier = Modifier
                         .align(alignment = Alignment.TopCenter)
@@ -813,10 +664,10 @@ class Home {
         Column(
             verticalArrangement = Arrangement.spacedBy(141.dp, Alignment.Top),
             modifier = modifier
-                .requiredWidth(width = 265.dp)
+                .requiredWidth(width = 280.dp)
                 .fillMaxHeight()
                 .background(color = Color.White)
-                .padding(all = 24.dp)
+                .padding(all = 22.dp)
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
@@ -830,18 +681,23 @@ class Home {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clip(shape = RoundedCornerShape(5.dp))
+                        .background(color = Color(0xD7F0DDE3))
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .weight(weight = 1f)
+                            .offset(x=3.dp)
+                            .requiredHeight(60.dp)
                     ) {
                         Box(
                             modifier = Modifier
                                 .requiredSize(size = 48.dp)
                                 .clip(shape = RoundedCornerShape(48.dp))
-                                .background(color = Color(0xffffd88d))
+
+                                .background(color = Color(0xFFFFFFFF))
                         ) {
 //                            Image(
 //                                painter = painterResource(id = R.drawable.img_81),
@@ -855,7 +711,7 @@ class Home {
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Ashfak Sayem",
+                                text = "Satguru",
                                 color = Color(0xff1a1b2d),
                                 lineHeight = 1.6.em,
                                 style = TextStyle(
@@ -863,7 +719,7 @@ class Home {
                                 modifier = Modifier
                                     .fillMaxWidth())
                             Text(
-                                text = "ashfaksayem@gmail.com",
+                                text = "Email@gmail.com",
                                 color = Color(0xff535763),
                                 lineHeight = 1.em,
                                 style = TextStyle(
@@ -916,7 +772,7 @@ class Home {
 //                                    painter = painterResource(id = R.drawable.icontypelighticonnamebadgesize24px),
 //                                    contentDescription = "Icon- Outline")
                                 Text(
-                                    text = "Rewards",
+                                    text = "Employee",
                                     color = Color(0xff535763),
                                     lineHeight = 1.6.em,
                                     style = TextStyle(
@@ -961,7 +817,7 @@ class Home {
 //                                painter = painterResource(id = R.drawable.iconlistaddressiconcolorgreyicontypestrokesize24),
 //                                contentDescription = "Icon/Menu icon")
                             Text(
-                                text = "Address",
+                                text = "Edit profile",
                                 color = Color(0xff535763),
                                 lineHeight = 1.6.em,
                                 style = TextStyle(
@@ -970,23 +826,6 @@ class Home {
                                     .fillMaxWidth())
                         }
 
-                        Box(
-                            modifier = Modifier
-                                .requiredSize(size = 20.dp)
-                                .clip(shape = MaterialTheme.shapes.small)
-                                .background(color = Color(0xfffb9b9b))
-                        ) {
-                            Text(
-                                text = "2",
-                                color = Color.Black,
-                                textAlign = TextAlign.Center,
-                                style = TextStyle(
-                                    fontSize = 10.sp),
-                                modifier = Modifier
-                                    .align(alignment = Alignment.TopStart)
-                                    .offset(x = 6.71728515625.dp,
-                                        y = 4.dp))
-                        }
                     }
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
@@ -1007,7 +846,7 @@ class Home {
 //                                contentDescription = "Icon/Menu icon",
 //                                tint = Color(0xff535763))
                             Text(
-                                text = "Payments Methods",
+                                text = "Change Pin",
                                 color = Color(0xff535763),
                                 lineHeight = 1.6.em,
                                 style = TextStyle(
@@ -1015,6 +854,7 @@ class Home {
                                 modifier = Modifier
                                     .fillMaxWidth())
                         }
+
                     }
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
@@ -1034,7 +874,7 @@ class Home {
 //                                painter = painterResource(id = R.drawable.iconlistoffersiconcolorgreyicontypestrokesize24),
 //                                contentDescription = "Icon/Menu icon")
                             Text(
-                                text = "Offers",
+                                text = "About",
                                 color = Color(0xff535763),
                                 lineHeight = 1.6.em,
                                 style = TextStyle(
@@ -1042,23 +882,7 @@ class Home {
                                 modifier = Modifier
                                     .fillMaxWidth())
                         }
-                        Box(
-                            modifier = Modifier
-                                .requiredSize(size = 20.dp)
-                                .clip(shape = MaterialTheme.shapes.small)
-                                .background(color = Color(0xffb5ebcd))
-                        ) {
-                            Text(
-                                text = "2",
-                                color = Color.Black,
-                                textAlign = TextAlign.Center,
-                                style = TextStyle(
-                                    fontSize = 10.sp),
-                                modifier = Modifier
-                                    .align(alignment = Alignment.TopStart)
-                                    .offset(x = 6.71728515625.dp,
-                                        y = 4.dp))
-                        }
+
                     }
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
@@ -1078,7 +902,7 @@ class Home {
 //                                painter = painterResource(id = R.drawable.iconlistreferafriendiconcolorgreyicontypestrokesize24),
 //                                contentDescription = "Icon/Menu icon")
                             Text(
-                                text = "Refer a Friend",
+                                text = "Help",
                                 color = Color(0xff535763),
                                 lineHeight = 1.6.em,
                                 style = TextStyle(
@@ -1106,7 +930,7 @@ class Home {
 //                                contentDescription = "Icon/Menu icon",
 //                                tint = Color(0xff535763))
                             Text(
-                                text = "Support",
+                                text = "Log out",
                                 color = Color(0xff535763),
                                 lineHeight = 1.6.em,
                                 style = TextStyle(

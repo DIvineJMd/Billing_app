@@ -271,3 +271,11 @@ fun LoginPageUserPreview() {
         LoginPage(navController).Log('u')
     }
 }
+@Preview
+@Composable
+fun content() {
+    BillingAppTheme {
+        val navController = rememberNavController()
+        LoginPage(navController).content()
+    }
+}
