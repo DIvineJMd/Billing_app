@@ -6,7 +6,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,38 +26,52 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+
 class Home {
     @Composable
-    fun HomeScreen(modifier: Modifier = Modifier) {
+    fun HomeScreen(modifier: Modifier = Modifier,drawerState: DrawerState, drawerScope: CoroutineScope) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -64,13 +81,18 @@ class Home {
               )
          {
 
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-            ) {
+
+            ) { var isDrawerOpen by remember { mutableStateOf(false) }
+                var drawerContent by remember { mutableStateOf(0) }
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clip(shape= RoundedCornerShape(30.dp))
+                        .shadow(1000.dp, shape = RectangleShape)
                         .requiredHeight(height = 80.dp)
                         .statusBarsPadding()
                         .background(
@@ -80,17 +102,20 @@ class Home {
                                 center = Offset(200f, 80f),
                                 radius = 195f
                             )
-                        ))
+                        )
+                        )
                 IconButton(
-                    onClick = { /* Handle click here */ },
+                    onClick = {   drawerScope.launch { drawerState.open() } },
                     modifier = modifier
-                        .padding(top=18.dp)
+                        .offset(x = 5.dp, y = 5.dp)
+                        .padding(top = 10.dp)
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.menu),
+                    Image(
+                        painter = painterResource(id = R.drawable.frame ),
                         contentDescription = "Menu",
                         modifier = Modifier
-                            .size(30.dp) // Set size directly on the Icon
+                            .offset(x = 0.dp, y = 0.dp)
+                            .size(40.dp) // Set size directly on the Icon
                     )
                 }
 
@@ -121,15 +146,19 @@ class Home {
                     text = buildAnnotatedString {
                         withStyle(style = SpanStyle(
                             color = Color.White,
-                            fontSize = 18.sp)
+                            fontSize = 18.sp,
+                            fontFamily = FontFamily(Font(R.font.itim))
+                           )
                         ) {append("SATGURU")}
                         withStyle(style = SpanStyle(
                             color = Color(0xff515151),
-                            fontSize = 32.sp)
+                            fontSize = 32.sp,
+                            fontFamily = FontFamily(Font(R.font.itim)))
                         ) {append(" ")}
                         withStyle(style = SpanStyle(
                             color = Color(0xff424242),
-                            fontSize = 16.sp)
+                            fontSize = 16.sp,
+                            fontFamily = FontFamily(Font(R.font.itim)))
                         ) {append("TELECOM")}},
                     modifier = Modifier
                         .statusBarsPadding()
@@ -190,6 +219,7 @@ class Home {
                             style = TextStyle(
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 12.sp),
+                            fontFamily = FontFamily(Font(R.font.itim)),
                             modifier = Modifier
                                 .align(alignment = Alignment.TopStart)
                                 .offset(
@@ -582,7 +612,9 @@ class Home {
                                 .clip(shape = RoundedCornerShape(topStart = 2.dp, topEnd = 2.dp))
                                 .background(color = Color(0xfffff0dd)))
                       //yaha
-                        Text(modifier = Modifier.padding(3.dp).offset(x=6.dp,y=0.dp), text = "Today")
+                        Text(modifier = Modifier
+                            .padding(3.dp)
+                            .offset(x = 6.dp, y = 0.dp), text = "Today")
                         dropdown()
                     }
                 }
@@ -673,6 +705,9 @@ class Home {
                         .wrapContentHeight(align = Alignment.CenterVertically))}
         }
     }
+
+
+
     @Composable
     fun dropdown() {
         val listItems = arrayOf("This Week", "This Month")
@@ -747,10 +782,353 @@ class Home {
                 }
             }
         }
+
+
     }
+    @Composable
+    fun NavDra(modifier: Modifier) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background,
+        ) {
+            val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+            val drawerScope = rememberCoroutineScope()
+
+            // Use the provided drawerState and drawerScope
+            ModalNavigationDrawer(
+                drawerState = drawerState,
+                drawerContent = {
+
+                    NavigationTypeFullScreenThemeLight(Modifier)
+
+                }
+            ) {
+                // Your main screen content
+                HomeScreen(modifier, drawerState, drawerScope)
+            }
+        }
+    }
+    @Composable
+    fun NavigationTypeFullScreenThemeLight(modifier: Modifier = Modifier) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(141.dp, Alignment.Top),
+            modifier = modifier
+                .requiredWidth(width = 265.dp)
+                .fillMaxHeight()
+                .background(color = Color.White)
+                .padding(all = 24.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .offset(y=20.dp)
+                    .requiredHeight(height = 769.dp)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(48.dp, Alignment.Start),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .weight(weight = 1f)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .requiredSize(size = 48.dp)
+                                .clip(shape = RoundedCornerShape(48.dp))
+                                .background(color = Color(0xffffd88d))
+                        ) {
+//                            Image(
+//                                painter = painterResource(id = R.drawable.img_81),
+//                                contentDescription = "81",
+//                                modifier = Modifier
+//                                    .fillMaxSize()
+//                                    .clip(shape = RoundedCornerShape(256.9054260253906.dp)))
+                        }
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Ashfak Sayem",
+                                color = Color(0xff1a1b2d),
+                                lineHeight = 1.6.em,
+                                style = TextStyle(
+                                    fontSize = 15.sp),
+                                modifier = Modifier
+                                    .fillMaxWidth())
+                            Text(
+                                text = "ashfaksayem@gmail.com",
+                                color = Color(0xff535763),
+                                lineHeight = 1.em,
+                                style = TextStyle(
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Medium),
+                                modifier = Modifier
+                                    .fillMaxWidth())
+                        }
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start)
+                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.filled),
+//                                contentDescription = "UI icon/close/filled",
+//                                tint = Color(0xff535763))
+                        }
+                    }
+                }
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(8.dp))
+                            .padding(all = 12.dp)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .weight(weight = 1f)
+                        ) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                            ) {
+//                                Icon(
+//                                    painter = painterResource(id = R.drawable.icontypelighticonnamebadgesize24px),
+//                                    contentDescription = "Icon- Outline")
+                                Text(
+                                    text = "Rewards",
+                                    color = Color(0xff535763),
+                                    lineHeight = 1.6.em,
+                                    style = TextStyle(
+                                        fontSize = 15.sp),
+                                    modifier = Modifier
+                                        .fillMaxWidth())
+                            }
+                        }
+                        Box(
+                            modifier = Modifier
+                                .requiredSize(size = 20.dp)
+                                .clip(shape = MaterialTheme.shapes.small)
+                                .background(color = Color(0xfffb9b9b))
+                        ) {
+                            Text(
+                                text = "2",
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+                                style = TextStyle(
+                                    fontSize = 10.sp),
+                                modifier = Modifier
+                                    .align(alignment = Alignment.TopStart)
+                                    .offset(x = 6.71728515625.dp,
+                                        y = 4.dp))
+                        }
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(8.dp))
+                            .padding(all = 12.dp)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.iconlistaddressiconcolorgreyicontypestrokesize24),
+//                                contentDescription = "Icon/Menu icon")
+                            Text(
+                                text = "Address",
+                                color = Color(0xff535763),
+                                lineHeight = 1.6.em,
+                                style = TextStyle(
+                                    fontSize = 15.sp),
+                                modifier = Modifier
+                                    .fillMaxWidth())
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .requiredSize(size = 20.dp)
+                                .clip(shape = MaterialTheme.shapes.small)
+                                .background(color = Color(0xfffb9b9b))
+                        ) {
+                            Text(
+                                text = "2",
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+                                style = TextStyle(
+                                    fontSize = 10.sp),
+                                modifier = Modifier
+                                    .align(alignment = Alignment.TopStart)
+                                    .offset(x = 6.71728515625.dp,
+                                        y = 4.dp))
+                        }
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(8.dp))
+                            .padding(all = 12.dp)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.iconlistwalleticoncolorgreyicontypestrokesize24),
+//                                contentDescription = "Icon/Menu icon",
+//                                tint = Color(0xff535763))
+                            Text(
+                                text = "Payments Methods",
+                                color = Color(0xff535763),
+                                lineHeight = 1.6.em,
+                                style = TextStyle(
+                                    fontSize = 15.sp),
+                                modifier = Modifier
+                                    .fillMaxWidth())
+                        }
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(8.dp))
+                            .padding(all = 12.dp)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .weight(weight = 1f)
+                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.iconlistoffersiconcolorgreyicontypestrokesize24),
+//                                contentDescription = "Icon/Menu icon")
+                            Text(
+                                text = "Offers",
+                                color = Color(0xff535763),
+                                lineHeight = 1.6.em,
+                                style = TextStyle(
+                                    fontSize = 15.sp),
+                                modifier = Modifier
+                                    .fillMaxWidth())
+                        }
+                        Box(
+                            modifier = Modifier
+                                .requiredSize(size = 20.dp)
+                                .clip(shape = MaterialTheme.shapes.small)
+                                .background(color = Color(0xffb5ebcd))
+                        ) {
+                            Text(
+                                text = "2",
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+                                style = TextStyle(
+                                    fontSize = 10.sp),
+                                modifier = Modifier
+                                    .align(alignment = Alignment.TopStart)
+                                    .offset(x = 6.71728515625.dp,
+                                        y = 4.dp))
+                        }
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(8.dp))
+                            .padding(all = 12.dp)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.iconlistreferafriendiconcolorgreyicontypestrokesize24),
+//                                contentDescription = "Icon/Menu icon")
+                            Text(
+                                text = "Refer a Friend",
+                                color = Color(0xff535763),
+                                lineHeight = 1.6.em,
+                                style = TextStyle(
+                                    fontSize = 15.sp),
+                                modifier = Modifier
+                                    .fillMaxWidth())
+                        }
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(8.dp))
+                            .padding(all = 12.dp)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+//                            Icon(
+//                                painter = painterResource(id = R.drawable.iconlistsupporticoncolorgreyicontypestrokesize24),
+//                                contentDescription = "Icon/Menu icon",
+//                                tint = Color(0xff535763))
+                            Text(
+                                text = "Support",
+                                color = Color(0xff535763),
+                                lineHeight = 1.6.em,
+                                style = TextStyle(
+                                    fontSize = 15.sp),
+                                modifier = Modifier
+                                    .fillMaxWidth())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @Preview
     @Composable
-    private fun HomeScreenPreview() {
-        HomeScreen(Modifier)
+    private fun NavigationTypeFullScreenThemeLightPreview() {
+        NavigationTypeFullScreenThemeLight(Modifier)
+    }
+
+    @Preview
+    @Composable
+    fun HomeScreenPreview() {
+        NavDra(Modifier) // Assuming you want to preview the HomeScreen with the Navigation Drawer
     }
 }

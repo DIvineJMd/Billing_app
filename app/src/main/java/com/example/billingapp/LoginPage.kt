@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -216,11 +217,11 @@ class LoginPage(private val navController: NavHostController) {
                         Icon(imageVector = image, description)
                     }
                              },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedLabelColor= orange_main,
-                    unfocusedLabelColor= Color.Gray,
+                colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = orange_main,
                     unfocusedBorderColor = Color.Gray,
+                    focusedLabelColor = orange_main,
+                    unfocusedLabelColor = Color.Gray,
                 )
 
             )
