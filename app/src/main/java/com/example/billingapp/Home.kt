@@ -411,7 +411,7 @@ class Home {
                                 .offset(y=-15.dp)
                                 .wrapContentHeight(align = Alignment.CenterVertically))
                         Image(
-                            painter = painterResource(id = R.drawable.management1),
+                            painter = painterResource(id = R.drawable.credit),
                             contentDescription = "management 1",
                             modifier = Modifier
                                 .align(alignment = Alignment.TopStart)
