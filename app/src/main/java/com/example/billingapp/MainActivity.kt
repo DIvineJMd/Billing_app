@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
                 composable("login") { LoginPage(navController).content()}
                 composable("userPage") { LoginPage(navController).Log(userType = 'u') }
                 composable("adminPage") { LoginPage(navController).Log(userType = 'a')
-                composable("Inventory"){Inventory()}}
+                }
                                 }
             }
         }
