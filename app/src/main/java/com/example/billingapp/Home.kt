@@ -767,6 +767,8 @@ class Home {
                                 verticalAlignment = Alignment.CenterVertically,
                                 modifier = Modifier
                                     .fillMaxWidth()
+                                    .fillMaxHeight(0.05f)
+                                    .clickable {  }
                             ) {
 //                                Icon(
 //                                    painter = painterResource(id = R.drawable.icontypelighticonnamebadgesize24px),
@@ -811,7 +813,8 @@ class Home {
                             horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .fillMaxWidth()
+                                .fillMaxWidth().fillMaxHeight(0.05f)
+                                .clickable {  }
                         ) {
 //                            Icon(
 //                                painter = painterResource(id = R.drawable.iconlistaddressiconcolorgreyicontypestrokesize24),
@@ -839,7 +842,8 @@ class Home {
                             horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .fillMaxWidth()
+                                .fillMaxWidth().fillMaxHeight(0.05f)
+                                .clickable {  }
                         ) {
 //                            Icon(
 //                                painter = painterResource(id = R.drawable.iconlistwalleticoncolorgreyicontypestrokesize24),
@@ -868,7 +872,8 @@ class Home {
                             horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .weight(weight = 1f)
+                                .weight(weight = 1f).fillMaxHeight(0.05f)
+                                .clickable {  }
                         ) {
 //                            Icon(
 //                                painter = painterResource(id = R.drawable.iconlistoffersiconcolorgreyicontypestrokesize24),
@@ -896,7 +901,8 @@ class Home {
                             horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .fillMaxWidth()
+                                .fillMaxWidth().fillMaxHeight(0.05f)
+                                .clickable {  }
                         ) {
 //                            Icon(
 //                                painter = painterResource(id = R.drawable.iconlistreferafriendiconcolorgreyicontypestrokesize24),
@@ -923,7 +929,8 @@ class Home {
                             horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.Start),
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
-                                .fillMaxWidth()
+                                .fillMaxWidth().fillMaxHeight(0.05f)
+                                .clickable {  }
                         ) {
 //                            Icon(
 //                                painter = painterResource(id = R.drawable.iconlistsupporticoncolorgreyicontypestrokesize24),
