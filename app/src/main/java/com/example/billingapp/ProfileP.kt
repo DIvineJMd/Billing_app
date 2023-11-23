@@ -69,7 +69,7 @@ class ProfileP {
 
             val containerColor = Color(0xffc4c4c4)
             OutlinedTextField(
-                value = "Divine",
+                value = "Sonu maan",
                 onValueChange = {},
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = containerColor,
@@ -87,7 +87,7 @@ class ProfileP {
                     .clip(shape = RoundedCornerShape(8.dp)))
             val containerColor1 = Color(0xffc4c4c4)
             OutlinedTextField(
-                value = "",
+                value = "Sonu_0maan@mail.com",
                 onValueChange = {},
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = containerColor1,
@@ -105,7 +105,7 @@ class ProfileP {
                     .clip(shape = RoundedCornerShape(8.dp)))
             val containerColor2 = Color(0xffc4c4c4)
             OutlinedTextField(
-                value = "",
+                value = "+91 78123***",
                 onValueChange = {},
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = containerColor2,
@@ -123,7 +123,7 @@ class ProfileP {
                     .clip(shape = RoundedCornerShape(8.dp)))
             val containerColor3 = Color(0xffc4c4c4)
             OutlinedTextField(
-                value = "",
+                value = "******",
                 onValueChange = {},
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = containerColor3,
@@ -241,7 +241,7 @@ class ProfileP {
                                 )
                             ))
                     Text(
-                        text = "Save",
+                        text = "Edit",
                         color = Color(0xff020202),
                         textAlign = TextAlign.Center,
                         style = TextStyle(

@@ -1,6 +1,5 @@
 package com.example.billingapp
 
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,12 +21,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -45,11 +40,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -64,10 +56,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class Home {
+class Home(private val navController: NavHostController) {
     @Composable
     fun HomeScreen(modifier: Modifier = Modifier,drawerState: DrawerState, drawerScope: CoroutineScope) {
         Box(
@@ -89,19 +83,18 @@ class Home {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(shape= RoundedCornerShape(10.dp))
-                        .shadow(1000.dp, shape = RectangleShape)
-                        .requiredHeight(height = 80.dp)
-                        .statusBarsPadding()
-                        .background(
-                            brush = Brush.radialGradient(
-                                0f to Color(0xffff8c00),
-                                1f to Color(0xffff723f),
-                                center = Offset(200f, 80f),
-                                radius = 195f
+                        .clip(
+                            shape = RoundedCornerShape(
+                                topStart = 0.dp,
+                                topEnd = 0.dp,
+                                bottomStart = 10.dp,
+                                bottomEnd = 10.dp
                             )
                         )
-                        )
+                        .shadow(1000.dp, shape = RectangleShape)
+                        .requiredHeight(height = 80.dp)
+                        .background(color = Color(0xffff6b00))
+                )
                 IconButton(
                     onClick = {   drawerScope.launch { drawerState.open() } },
                     modifier = modifier
@@ -209,7 +202,7 @@ class Home {
                                     border = BorderStroke(1.dp, Color(0xffa5a5a5)),
                                     shape = RoundedCornerShape(10.dp)
                                 )
-                                .clickable { /* Handle */ }
+                                .clickable { navController.navigate("inv") }
                         )
                         Text(
                             text = "Inventory",
@@ -256,7 +249,7 @@ class Home {
                                 border = BorderStroke(1.dp, Color(0xffa5a5a5)),
                                 shape = RoundedCornerShape(10.dp)
                             )
-                            .clickable { /* Handle */ })
+                            .clickable { navController.navigate("rep") })
                         Text(
                             text = "Reports",
                             color = Color(0xffa3695c),
@@ -350,7 +343,7 @@ class Home {
                                     border = BorderStroke(1.dp, Color(0xffa5a5a5)),
                                     shape = RoundedCornerShape(10.dp)
                                 )
-                                .clickable { /* Handle */ }
+                                .clickable { navController.navigate("lon") }
                         )
                         Text(
                             text = "Loan",
@@ -442,7 +435,7 @@ class Home {
                                     border = BorderStroke(1.dp, Color(0xffa5a5a5)),
                                     shape = RoundedCornerShape(10.dp)
                                 )
-                                .clickable { /* Handle */ }
+                                .clickable { navController.navigate("sellp") }
                         )
                         Text(
                             text = "Sell Product",
@@ -560,83 +553,6 @@ class Home {
 
 
     @Composable
-    fun dropdown() {
-        val listItems = arrayOf("This Week", "This Month")
-        val disabledItem = 2
-        val contextForToast = LocalContext.current.applicationContext
-
-        // State of the selected item and the menu
-        var selectedItem by remember { mutableStateOf(listItems[0]) }
-        var expanded by remember { mutableStateOf(false) }
-
-        Box(
-            modifier = Modifier
-                .requiredWidth(width = 86.dp)
-                .requiredHeight(height = 24.dp),
-            contentAlignment = Alignment.BottomEnd
-        ) {
-
-            // 3 vertical dots icon
-            IconButton(onClick = {
-                expanded = true
-            }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = "Open Options"
-                )
-            }
-
-            // Drop down menu
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = {
-                    expanded = false
-                }
-            ) {
-                // Adding items
-                listItems.forEachIndexed { itemIndex, itemValue ->
-                    DropdownMenuItem(
-                        onClick = {
-                            // Update the selected item
-                            selectedItem = itemValue
-                            expanded = false
-
-                            // Perform actions or updates based on the selected item
-                            when (itemValue) {
-                                "This Week" -> {
-                                    // Handle the "This Week" selection
-                                    // Update your UI accordingly
-                                }
-                                "This Month" -> {
-                                    // Handle the "This Month" selection
-                                    // Update your UI accordingly
-                                }
-                            }
-
-                            Toast.makeText(contextForToast, itemValue, Toast.LENGTH_SHORT)
-                                .show()
-                        },
-                        enabled = (itemIndex != disabledItem)
-                    ) {
-                        Text(text = itemValue)
-                    }
-                }
-            }
-
-            // Conditionally render components based on the selected item
-            when (selectedItem) {
-                "This Week" -> {
-                    // Render components for "This Week" selection
-                }
-                "This Month" -> {
-                    // Render components for "This Month" selection
-                }
-            }
-        }
-
-
-    }
-    @Composable
     fun NavDra(modifier: Modifier) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -683,6 +599,7 @@ class Home {
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(5.dp))
                         .background(color = Color(0xD7F0DDE3))
+
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
@@ -691,6 +608,7 @@ class Home {
                             .weight(weight = 1f)
                             .offset(x=3.dp)
                             .requiredHeight(60.dp)
+                            .clickable { navController.navigate("pro") }
                     ) {
                         Box(
                             modifier = Modifier
@@ -711,7 +629,7 @@ class Home {
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Satguru",
+                                text = "Sonu maan",
                                 color = Color(0xff1a1b2d),
                                 lineHeight = 1.6.em,
                                 style = TextStyle(
@@ -951,15 +869,18 @@ class Home {
         }
     }
 
-    @Preview
-    @Composable
-    private fun NavigationTypeFullScreenThemeLightPreview() {
-        NavigationTypeFullScreenThemeLight(Modifier)
-    }
 
-    @Preview
-    @Composable
-    fun HomeScreenPreview() {
-        NavDra(Modifier) // Assuming you want to preview the HomeScreen with the Navigation Drawer
-    }
+}
+@Preview
+@Composable
+private fun NavigationTypeFullScreenThemeLightPreview() {
+    val navController = rememberNavController()
+    Home(navController).NavigationTypeFullScreenThemeLight(Modifier)
+}
+
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    val navController = rememberNavController()
+    Home(navController).NavDra(Modifier) // Assuming you want to preview the HomeScreen with the Navigation Drawer
 }
