@@ -1,4 +1,4 @@
-package com.example.billingapp
+package com.example.billingapp.workspace.selling
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -45,6 +45,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.billingapp.R
 
 
 data class bill(
@@ -166,7 +167,7 @@ class Sellpage {
 
                                 )
 
-                                Text(text = "₹ ${total}",
+                                Text(text = "₹ $total",
                                     modifier = Modifier.weight(1f),
                                     style = TextStyle(
                                     fontWeight = FontWeight.Bold)
@@ -208,7 +209,7 @@ class Sellpage {
                             )
                             Text(text = "",
                                 modifier = Modifier.weight(1f))
-                            Text(text = "${total}",
+                            Text(text = "$total",
                                 modifier = Modifier.weight(1f),
                                 style = TextStyle(
                                     fontWeight = FontWeight.Bold)
@@ -250,7 +251,7 @@ class Sellpage {
                             )
                             Text(text = "",
                                 modifier = Modifier.weight(1f))
-                            Text(text = "${total}",
+                            Text(text = "$total",
                                 modifier = Modifier.weight(1f),
                                 style = TextStyle(
                                     fontWeight = FontWeight.Bold)

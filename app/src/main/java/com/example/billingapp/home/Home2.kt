@@ -188,7 +188,7 @@ class Home2(private val navController: NavHostController) {
                                 border = BorderStroke(1.dp, Color(0xffa5a5a5)),
                                 shape = RoundedCornerShape(10.dp)
                             )
-                            .clickable { navController.navigate("phone") }
+                            .clickable { navController.navigate("inv") }
                     ) {
                         Text(
                             text = "Inventory",

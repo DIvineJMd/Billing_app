@@ -2,7 +2,29 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="PreviewPhone">
+      <entry key="AddassPreview">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\AAKAS\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2023-12-24T13:10:05.377878100Z" />
+        </State>
+      </entry>
+      <entry key="PreviewAddPhoneContent">
+        <State />
+      </entry>
+      <entry key="PreviewAssListContent">
+        <State />
+      </entry>
+      <entry key="PreviewMobileListContent">
         <State />
       </entry>
       <entry key="app">
@@ -18,8 +40,11 @@
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2023-12-18T19:46:29.118895800Z" />
+          <timeTargetWasSelectedWithDropDown value="2023-12-28T05:54:26.788686700Z" />
         </State>
+      </entry>
+      <entry key="sellPreview">
+        <State />
       </entry>
     </value>
   </component>

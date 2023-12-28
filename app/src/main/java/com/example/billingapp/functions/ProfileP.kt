@@ -72,12 +72,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.billingapp.R
 import com.example.billingapp.signin.UserData
 import kotlinx.coroutines.launch
 
-class ProfileP {
+class ProfileP(private val navController: NavHostController) {
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
@@ -111,7 +113,9 @@ class ProfileP {
                     colors = TopAppBarDefaults.smallTopAppBarColors(
                         containerColor = Color(0xffff6b00)
                     ), navigationIcon = {
-                        IconButton(onClick = {}) {
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                                 contentDescription = "Localized description",
@@ -121,8 +125,10 @@ class ProfileP {
                     },
                     actions = {
                         IconButton(onClick = { /* do something */ }) {
-                            BadgedBox(badge = { Badge { Text("8") } },
-                                    modifier=Modifier.offset(x=-7.dp)) {
+                            BadgedBox(
+                                badge = { Badge { Text("8") } },
+                                modifier = Modifier.offset(x = -7.dp)
+                            ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.notification),
                                     contentDescription = "Localized description",
@@ -135,10 +141,11 @@ class ProfileP {
                 )
             }
         ) {
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .offset(y = 50.dp)
-               ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .offset(y = 50.dp)
+            ) {
                 Box(
                     modifier = Modifier
                         .align(alignment = Alignment.CenterHorizontally)
@@ -150,24 +157,24 @@ class ProfileP {
                             shape = CircleShape
                         )
                         .padding(8.dp) // Apply padding to the border
-                ) {if(userData?.profilePictureUrl != null) {
-                    AsyncImage(
-                        model = userData.profilePictureUrl,
-                        contentDescription = "Profile picture",
-                        modifier = Modifier
-                            .size(150.dp)
-                            .clip(CircleShape),
-                        contentScale = ContentScale.Crop
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                }
+                ) {
+                    if (userData?.profilePictureUrl != null) {
+                        AsyncImage(
+                            model = userData.profilePictureUrl,
+                            contentDescription = "Profile picture",
+                            modifier = Modifier
+                                .size(150.dp)
+                                .clip(CircleShape),
+                            contentScale = ContentScale.Crop
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
 
                 }
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(20.dp)
-                    ,
+                        .padding(20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     if (userData != null) {
@@ -209,10 +216,12 @@ class ProfileP {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        TextButton(modifier = Modifier.weight(1f),onClick = { /* navigate to edit profile */ },
-                            ) {
+                        TextButton(
+                            modifier = Modifier.weight(1f),
+                            onClick = { /* navigate to edit profile */ },
+                        ) {
 
-                            Box(modifier = Modifier.fillMaxWidth()){
+                            Box(modifier = Modifier.fillMaxWidth()) {
                                 Icon(
                                     imageVector = Icons.Filled.Edit, contentDescription = null,
                                     modifier = Modifier
@@ -233,10 +242,12 @@ class ProfileP {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        TextButton(modifier = Modifier.weight(1f),onClick = { /* navigate to edit profile */ },
+                        TextButton(
+                            modifier = Modifier.weight(1f),
+                            onClick = { /* navigate to edit profile */ },
                         ) {
 
-                            Box(modifier = Modifier.fillMaxWidth()){
+                            Box(modifier = Modifier.fillMaxWidth()) {
                                 Icon(
                                     imageVector = Icons.Filled.BarChart, contentDescription = null,
                                     modifier = Modifier
@@ -244,7 +255,8 @@ class ProfileP {
 
                                 )
                                 Text(
-                                    modifier = Modifier.padding(horizontal = 50.dp), text = "Statistics",
+                                    modifier = Modifier.padding(horizontal = 50.dp),
+                                    text = "Statistics",
                                     style = TextStyle(fontSize = 20.sp)
                                 )
                             }
@@ -257,11 +269,11 @@ class ProfileP {
 
         }
     }
-
-    @Preview(widthDp = 390, heightDp = 1008)
+}
+    @Preview
     @Composable
     private fun MyProfilePreview() {
         val user: UserData? = null
-        MyProfile(user)
+        val navController = rememberNavController()
+        ProfileP(navController).MyProfile(user)
     }
-}

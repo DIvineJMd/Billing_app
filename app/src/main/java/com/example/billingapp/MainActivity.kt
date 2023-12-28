@@ -1,13 +1,14 @@
 package com.example.billingapp
 
+import android.os.Build
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,10 +39,16 @@ import com.example.billingapp.signin.SignInScreen
 import com.example.billingapp.signin.SignInViewModel
 import com.example.billingapp.ui.theme.SataguruTelecomTheme
 import com.example.billingapp.ui.theme.Setcolorbar
-import com.example.billingapp.workspace.PhoneInventory
+import com.example.billingapp.workspace.Inventory
+import com.example.billingapp.workspace.accessories.Addass
+import com.example.billingapp.workspace.accessories.Ass
+import com.example.billingapp.workspace.accessories.Asslist
+import com.example.billingapp.workspace.mobile.AddEditphone
+import com.example.billingapp.workspace.mobile.InventoryViewModel
+import com.example.billingapp.workspace.mobile.MobileListContent
+import com.example.billingapp.workspace.mobile.MobilelistViewModel
+import com.example.billingapp.workspace.mobile.PhoneInventory
 import com.google.android.gms.auth.api.identity.Identity
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -55,7 +62,7 @@ class MainActivity : ComponentActivity() {
             oneTapClient = Identity.getSignInClient(applicationContext)
         )
     }
-    private lateinit var fetch:Button
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -65,11 +72,40 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = androidx.compose.material.MaterialTheme.colors.background
                 ) {
+                    val assViewModel: Ass.AccessoriesViewModel = viewModel()
+                    val mobileViewModel : MobilelistViewModel= viewModel()
                     val navController = rememberNavController()
                     NavHost(navController, startDestination = "splash"){
                         composable("splash") { SplashScreen(navController) }
-                        composable("Profile"){ProfileP().MyProfile(userData = googleAuthUiClient.getSignedInUser())}
-                        composable("phone"){PhoneInventory() }
+                        composable("Profile"){ProfileP(navController).MyProfile(userData = googleAuthUiClient.getSignedInUser())}
+                        composable("phone/{phoneName}") { navBackStackEntry ->
+                            val phoneName = navBackStackEntry.arguments?.getString("phoneName") ?: ""
+                            PhoneInventory(phoneName,navController)
+                        }
+                        composable("accessories/{categoryName}") { navBackStackEntry ->
+                            val categoryName = navBackStackEntry.arguments?.getString("categoryName") ?: ""
+                            Ass().AccessoriesInventory(categoryName, navController)
+                        }
+
+                        composable("ass"){Asslist().AssListContent(navController = navController)}
+                        composable("addass"){ Addass(navController = navController,assViewModel) }
+
+                        composable("mobilelist"){ MobileListContent(mobileViewModel, navController = navController)}
+                        composable("addm"){AddEditphone().AddEditPhoneContent(viewModel = mobileViewModel,navController,false,"","")}
+                        composable("editm/{company}/{phonename}") { backStackEntry ->
+                            val company = backStackEntry.arguments?.getString("company") ?: ""
+                            val phoneName = backStackEntry.arguments?.getString("phonename") ?: ""
+
+                            AddEditphone().AddEditPhoneContent(
+                                viewModel = mobileViewModel,
+                                navController = navController,
+                                Editmode = true,
+                                com = company,
+                                ph = phoneName
+                            )
+                        }
+
+                        composable("inv"){Inventory(navController).Inventory()}
                         composable("sign_in") {
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
@@ -137,6 +173,7 @@ class MainActivity : ComponentActivity() {
                                         navController.popBackStack()
                                     }
                                 }
+
                             )
                         }
                     }
